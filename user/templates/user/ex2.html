@@ -1,0 +1,382 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!--百度收录标识-->
+    <meta name="baidu-site-verification" content="ocAh7mV3PU" />
+    <title>用户中心 - 杨仕航的博客</title>
+    <!--全局样式-->
+    <link rel="stylesheet" type="text/css" href="/static/css/global/all-2.0.1.css">
+    <!--使用bootstrap框架-->
+    <link rel="stylesheet" href="/static/css/bootstrap/bootstrap.min.css">
+    <script src="/static/js/jquery-1.11.3.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <!--百度收录自动提交-->
+    <script src="//push.zhanzhang.baidu.com/push.js"></script>
+
+    <!--其他-->
+    <link rel="shortcut icon" href="/static/media/favicon.ico">
+    <script src="/static/js/jquery.cookie.js"></script>
+    <!--IE html5支持-->
+    <!--[if lt IE 9]>
+        <script src="/static/js/html5shiv.js"></script>
+    <![endif]-->
+
+
+    <!-- 统计 -->
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?a8c86a506ed6fac0b33b4980b9fd0483";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+
+<body>
+
+
+
+
+                <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                             data-target="#example-navbar-collapse">
+                            <span class="sr-only">切换导航</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                         </button>
+                        <a class="navbar-brand" href="/">杨仕航的博客</a>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="">
+                                <a href="/">
+                                    <span class="glyphicon glyphicon-home"></span> 首页
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="/blog/">
+                                    <span class="glyphicon glyphicon-pencil"></span> 博客
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="/subject/">
+                                    <span class="glyphicon glyphicon-file"></span> 专题
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="/tutorial/">
+                                    <span class="glyphicon glyphicon-book"></span> 教程
+                                </a>
+                            </li>
+                        </ul>
+
+                        <form action="/blog/" class="navbar-form navbar-right">
+                            <input name="wd" type="text" placeholder="搜索博文" class="form-control">
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </form>
+
+                        <ul id="user_part" class="nav navbar-nav navbar-right">
+
+
+                                <li role="presentation" class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                        <img class="navbar-header navbar-avatar" src="/static/media/avatar/default_64.png"/>
+                                        您好,
+
+                                            1727760897@qq.com
+
+
+
+                                        <span class="caret"></span>
+                                    </a>
+
+                                    <ul class="dropdown-menu">
+
+
+                                        <li><a href="/user/user_info">
+                                            用户中心
+
+                                        </a></li>
+                                        <li><a href="/user/user_avatar">修改头像</a></li>
+                                        <li><a href="/user/user_logout">退出</a></li>
+                                    </ul>
+                                </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+        <div class="container">
+
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">我的信息</div>
+                        <div class="panel-body">
+                            <div class="">
+                                <h4 class="user-name">1727760897@qq.com</h4>
+                                <span><a href="/user/nickname_change">修改昵称</a></span>
+                                <span><a href="/user/password_change">修改密码</a></span>
+                            </div>
+
+                            <ul class="user-info">
+                                <li>
+                                    <span>注册邮箱：</span>
+                                    <span>1727760897@qq.com</span>
+
+                                        <span>(未验证)</span>
+                                        <a href="/user/user_active_again">点击发送验证邮件</a>
+
+                                </li>
+                                <li>
+                                    <span>注册日期：</span>
+                                    <span>2021-04-18 10:21</span>
+                                </li>
+                                <li>
+                                    <span>最近登录：</span>
+                                    <span>2021-04-18 10:21</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">我的足迹</div>
+                        <div class="panel-body">
+                            <div class="">
+                                <h4 class="user-name">信息统计</h4>
+                                <span>最近参与讨论的文章：
+
+                                        无
+
+                                </span>
+                            </div>
+
+                            <ul class="user-info">
+                                <li>您共评论了<b>0</b>次</li>
+                                <li>您共回复了<b>0</b>次</li>
+                                <li>有<b>0</b>次，其他人回复了您</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">未读消息</div>
+                        <div class="panel-body">
+                            <div class="unread_head">
+                                <span>您共有0条未读消息</span>
+                                <a class="btn btn-info unread_btn" href="/user/user_mark_all_read">全部标记为已读</a>
+                            </div>
+
+                            <ul class="unread_list">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style type="text/css">
+        .user-info{ margin-top: 1em;}
+        .sp-item{ margin-bottom: 2em; border-bottom: 1px #ccc dashed;}
+        .sp-item li{ text-indent: 1em; padding-bottom: 0.3em;}
+
+        .unread_head{ overflow: hidden;}
+        .unread_head .unread_btn{ float: right;}
+        .unread_head span{ margin: 0.5em 0; display: inline-block;}
+
+        .unread_list{ margin-top:1em;}
+        .unread_list :hover{ background-color: #eee;}
+
+        .unread_list li{ padding: 1em 1em 0.5em; border-radius: 4px;}
+        .unread_list li:not(:last-child){ border-bottom: 1px #ccc dashed;}
+        .unread_list .unread_descript{ margin: 0.5em 1em 0;}
+    </style>
+
+        </div>
+
+
+
+
+        <div id="footer" class="page-bottom">
+
+            <div class="container">
+                <div class="col-sm-4 hidden-xs">
+                    <div class="content">
+                        <h4 class="title">关于本站</h4>
+                        <p>1、基于Django+Bootstrap开发</p>
+                        <p>2、主要发表本人的技术原创博客</p>
+                        <p>3、本站于 2015-12-01 开始建站</p>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="content">
+                        <h4 class="title">建议反馈</h4>
+                        <p>1、可在相应的博文底下评论</p>
+                        <p>2、发邮件到2872402050@qq.com</p>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 hidden-xs">
+                    <div class="content">
+                        <h4 class="title">友情链接</h4>
+                        <p><a href="https://zqyhdm.com/" target=_blank>再敲一行代码</a></p>
+                        <p><a href="https://jq.qq.com/?_wv=1027&k=5lSm3eD" title="QQ群：701914136（点击加群）" target=_blank>QQ群：701914136</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <span>Welcome to visit my website &copy; Haddy Yang</span>
+            </div>
+        </div>
+
+
+    <a id="scrolltop" class="gotop" href="javascript:void(0)" title="返回顶部"></a>
+
+    <!--打赏-->
+    <link type="text/css" rel="stylesheet" href="/static/css/tctip/myRewards.css">
+    <script>
+        window.tctipConfig = {
+            //最上面的文字
+            headText: "欢迎打赏支持我 ^_^",
+            //侧边栏文本
+            siderText: "公告 & 打赏",
+            //侧边栏文本高度调整
+            siderTextTop: "-72px",
+            //侧边栏背景颜色
+            siderBgcolor: "#323d45",
+            //整个侧边栏的高度设置
+            siderTop:"118px",
+            //底部文字
+            buttomText:"了解更多",
+            //底部文字链接
+            buttomLink:"https://github.com/haddyyang/tctip",
+            //显示列表
+            list:{
+                notice: {name:"公告栏", className:"myR-on",
+                         icon: "/static/img/qr_icon/tip.png",
+                         text: '获取公告中...'
+                        },
+                alipay: {name:"支付宝", desc: "用支付宝给“仕航”打赏",
+                         icon: "/static/img/qr_icon/alipay.png",
+                         qrimg: "/static/img/qr_code/alipay.jpg"
+                        },
+                weixin: {name:"微信", desc: "用微信给“仕航”打赏",
+                         icon: "/static/img/qr_icon/weixin.png",
+                         qrimg: "/static/img/qr_code/weixin.jpg"
+                        }
+            }
+        };
+    </script>
+    <script src="/static/js/tctip.min.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+            //滚动事件
+            $(window).scroll(function(){
+                var top=$(window).scrollTop();
+                var navbar = $(".navbar-fixed-top");
+
+                if(top==0){
+                    $(".navbar-fixed-top").removeClass("navbar-down");
+                }else{
+                    $(".navbar-fixed-top").addClass("navbar-down");
+                }
+
+                if(top>350){
+                    $("#scrolltop").fadeIn();
+                }else{
+                    $("#scrolltop").fadeOut();
+                }
+            });
+
+            //点击返回头部效果
+            $("#scrolltop").click(function(){
+                $("html,body").animate({scrollTop:0});
+            });
+
+            //窗体改变大小事件
+            $(window).resize(function(){
+                //正文高度
+                var body_height = $(document.body).outerHeight(true);
+
+                //底部元素高度
+                var bottom_height = $("#footer").outerHeight(true);
+
+                //浏览器页面高度
+                var window_height = $(window).height();
+
+                //判断并调整底部元素的样式
+                if($("#footer").hasClass('page-bottom-abs')){
+                    if(body_height + bottom_height >= window_height){
+                        $("#footer").removeClass('page-bottom-abs');
+                    }
+                }else{
+                    if(body_height < window_height){
+                        $("#footer").addClass('page-bottom-abs');
+                    }
+                }
+            });
+
+            //页面加载时，模拟触发一下resize事件
+            $(window).trigger('resize');
+
+            //检查登录状态和获取公告
+            var user_menu = '<li><a href="/user/login_page">登录/注册</a></li>';
+            $.ajax({
+                type:"GET",
+                url:"/user/check_is_login",
+                cache:false,
+                dataType:'json',
+                success:function(data){
+                    var notice;
+                    if(data['code']=='0'){
+                        user_menu = data['user_menu'];
+                        notice = data['notice'];
+                    }else{
+
+                        notice='暂无公告';
+                    };
+
+                    //$("#user_part").html(user_menu);
+                    $('.myRewards-text').html(notice);
+                    tctipConfig.list.notice.text=notice;
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    $("#user_part").html(user_menu);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

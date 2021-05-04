@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block header %}
+  <h2>Add a new topic:</h2>
+{% endblock header %}
+{% block nav_topic_active %}active{% endblock %}
+{% block content %}
+  <form action="{% url 'new_blog_type' %}" method='post' class="form">
+    {% csrf_token %}
+    {{ form.as_p }}
+      <button name="submit" class="btn btn-primary">add blog_type</button>
+  </form>
+{% endblock%}

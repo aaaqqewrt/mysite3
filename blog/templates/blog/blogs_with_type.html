@@ -1,0 +1,13 @@
+{% extends 'blog/blog_list.html' %}
+{% block title %}{{ blog_type.type_name }}{% endblock %}
+
+{% block blog_list_title %}
+        <h3>{{ blog_type.type_name }}</h3>
+    <div style="display:flex;">
+
+    <a href="{% url 'blog_list' %}">查看全部博客</a>
+        <a href="{% url 'new_blog' blog_type.id %} " style="color:#000" class="pull-right">
+            <button>新增</button>
+        </a>
+    </div>
+{% endblock %}

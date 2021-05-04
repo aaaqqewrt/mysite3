@@ -1,0 +1,876 @@
+
+
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!--百度收录标识-->
+    <meta name="baidu-site-verification" content="ocAh7mV3PU" />
+    <title>
+    我的网站搭建(第5天) Django评论库&nbsp;-&nbsp;杨仕航的博客
+</title>
+    <!--全局样式-->
+    <link rel="stylesheet" type="text/css" href="/static/css/global/all-2.0.1.css">
+    <!--使用bootstrap框架-->
+    <link rel="stylesheet" href="/static/css/bootstrap/bootstrap.min.css">
+    <script src="/static/js/jquery-1.11.3.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <!--百度收录自动提交-->
+    <script src="//push.zhanzhang.baidu.com/push.js"></script>
+
+    <!--其他-->
+    <link rel="shortcut icon" href="/static/media/favicon.ico">
+    <script src="/static/js/jquery.cookie.js"></script>
+    <!--IE html5支持-->
+    <!--[if lt IE 9]>
+        <script src="/static/js/html5shiv.js"></script>
+    <![endif]-->
+    
+    <link rel="stylesheet" type="text/css" href="/static/css/global/blog.css">
+    
+    <meta name="keywords" content="django-comments,Django评论库,网站搭建,Django">
+    <link rel="stylesheet" href="/static/css/prettify/github_ex.css" type="text/css">
+    <script type="text/javascript" src="/static/js/prettify.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/ueditor/UE/third-party/SyntaxHighlighter/shCoreDefault.css">
+    <script type="text/javascript" src="/ueditor/UE/third-party/SyntaxHighlighter/shCore.js"></script>
+    <link rel="stylesheet" href="/static/css/global/comment-2.0.2.css" type="text/css">
+
+    <!--emojione v2.1.1 使用bootstrap的cdn-->
+    <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/emojione/2.1.1/assets/sprites/emojione.sprites.css">
+    <script type="text/javascript" src="http://cdn.bootcss.com/emojione/2.1.1/lib/js/emojione.min.js"></script>
+
+    <!--emojionearea-->
+    <link rel="stylesheet" type="text/css" href="/static/css/emojionearea-2.1.3.min.css">
+    <script type="text/javascript" src="/static/js/emojionearea-2.1.3.min.js"></script>
+
+
+
+    <!-- 统计 -->
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?a8c86a506ed6fac0b33b4980b9fd0483";
+            var s = document.getElementsByTagName("script")[0]; 
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</head>
+
+<body>
+    
+        
+            
+            
+                <div class="navbar navbar-default navbar-fixed-top" role="navigation">   
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" 
+                             data-target="#example-navbar-collapse">
+                            <span class="sr-only">切换导航</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                         </button>
+                        <a class="navbar-brand" href="/">杨仕航的博客</a>
+                    </div>
+                    
+                    <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="">
+                                <a href="/">
+                                    <span class="glyphicon glyphicon-home"></span> 首页
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a href="/blog/">
+                                    <span class="glyphicon glyphicon-pencil"></span> 博客
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="/subject/">
+                                    <span class="glyphicon glyphicon-file"></span> 专题
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="/tutorial/">
+                                    <span class="glyphicon glyphicon-book"></span> 教程
+                                </a>
+                            </li>
+                        </ul>
+                        
+                        <form action="/blog/" class="navbar-form navbar-right">
+                            <input name="wd" type="text" placeholder="搜索博文" class="form-control">
+                            <button type="submit">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </form>
+
+                        <ul id="user_part" class="nav navbar-nav navbar-right">
+                            
+                                <li><a href="/user/login_page">登录/注册</a></li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            
+
+            
+                
+            
+        
+
+        <div class="container">
+            
+        <div class="col-md-9 col-xs-12">
+            
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="blog_header">
+                <h3>我的网站搭建(第5天) Django评论库</h3>
+
+                <ul>
+                    <li>发布时间：2015年12月8日 10:29</li>
+                    <li>作者：杨仕航</li>
+                    
+                </ul>
+                <span class="clearfix"></span>
+                <ul>
+                    <li>分类标签：
+                        
+                            <a href="/blog/?tag=1" target=_blank>我的网站搭建</a>          
+                        
+                    </li>
+                    <li>
+                        
+                        阅读(17321)
+                    </li>
+                    <li>
+                        
+                        
+                        评论(5)
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <div class="blog_content">
+                
+                    <div class="alert alert-success">* 该文是基于Python2.7开发的，最新Python3.x和Django2.x视频教程可以前往 &gt;&gt; <a href="http://space.bilibili.com/252028233/#/channel/detail?cid=28138" class="" target="_blank">Django2.0视频教程</a></div>
+                
+                <p>评论的功能打算用Django的评论库，添加引用却报错。</p><p>查了一下，Django原本会自带一个评论库组件，而从1.6版本以后就没有自带了，需要自己安装。</p><p>运行 pip install django-contrib-comments<br/></p><p>如下修改setting.py文件</p><pre class="prettyprint linenums">INSTALLED_APP=(
+&nbsp;&nbsp;&nbsp;&nbsp;#...,
+&nbsp;&nbsp;&nbsp;&nbsp;&#39;django_comments&#39;,
+&nbsp;&nbsp;&nbsp;&nbsp;&#39;django.contrib.sites&#39;,
+)
+SITE_ID&nbsp;=&nbsp;1</pre><p><br/></p><p>在INSTALLED_APP添加django_comments和django.contrib.sites两个应用。</p><p>在外部添加 SITE_ID=1。</p><p>django的评论库是一个站点，所以需要添加sites的应用并设置当前django工程的站点id=1</p><p><br/></p><p>记得在urls.py添加django_comments的路由设置，url中加入如下代码：</p><pre class="prettyprint linenums">url(r&#39;^comments/&#39;,&nbsp;include(&#39;django_comments.urls&#39;)),</pre><p><br/></p><p>执行 python ./manage.py syncdb 同步一下数据库即可。</p><p>接着，修改前端页面显示评论列表和评论提交表单。这些需要使用django_comments的模版标签，在使用标签之前导入加载：</p><pre class="prettyprint linenums">{#&nbsp;导入评论库模块的模版标签&nbsp;#}
+{%&nbsp;load&nbsp;comments&nbsp;%}</pre><p><br/></p><p>评论列表可以通过django_comments的get_comment_list模版标签获取，如下代码：</p><pre class="prettyprint linenums">&lt;div&nbsp;class=&quot;panel&nbsp;panel-default&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;panel-heading&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h4&gt;评论列表&lt;/h4&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;panel-body&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{%&nbsp;get_comment_list&nbsp;for&nbsp;blog&nbsp;as&nbsp;comments&nbsp;%}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{%&nbsp;for&nbsp;comment&nbsp;in&nbsp;comments&nbsp;%}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;blog_comment&quot;&nbsp;name=&quot;F{{comment.id}}&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&nbsp;class=&quot;comment_title&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{{&nbsp;comment.submit_date|date:&quot;Y-m-d&nbsp;H:i&quot;}}&nbsp;@&nbsp;{{&nbsp;comment.user_name&nbsp;}}：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/p&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&nbsp;class=&quot;comment_content&quot;&gt;{{&nbsp;comment.comment&nbsp;}}&lt;/p&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{%&nbsp;empty&nbsp;%}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span&gt;暂无评论&lt;/span&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{%&nbsp;endfor&nbsp;%}
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&lt;/div&gt;</pre><p><br/></p><p>get_comment_list模版标签的用法是for一个模版对象，as是重命名。变量得到的评论加载即可。<br/></p><p>而评论提交表单，最主要的是提交的url和表单字段。同样也可以通过django_comments的模版标签处理，如下代码：</p><pre class="prettyprint linenums">&lt;h4&gt;新的评论&lt;/h4&gt;
+{%&nbsp;get_comment_form&nbsp;for&nbsp;blog&nbsp;as&nbsp;blog_form&nbsp;%}
+
+&lt;form&nbsp;id=&quot;comment_form&quot;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class=&quot;form-horizontal&quot;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;action=&quot;{%&nbsp;comment_form_target&nbsp;%}&quot;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;method=&quot;post&quot;
+&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;{%&nbsp;csrf_token&nbsp;%}
+
+&nbsp;&nbsp;&nbsp;&nbsp;{#&nbsp;必须的字段&nbsp;#}
+&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;blog_form.object_pk&nbsp;}}
+&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;blog_form.content_type&nbsp;}}
+&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;blog_form.timestamp&nbsp;}}
+&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;blog_form.site&nbsp;}}
+&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;blog_form.submit_date&nbsp;}}
+&nbsp;&nbsp;&nbsp;&nbsp;{{&nbsp;blog_form.security_hash&nbsp;}}
+
+&nbsp;&nbsp;&nbsp;&nbsp;{#&nbsp;用户名字段，这个后面会修改为登录用户评论，无需填这个&nbsp;#}
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;control-group&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label&nbsp;class=&quot;control-label&quot;&nbsp;for=&quot;id_name&quot;&gt;名称：&nbsp;&lt;/label&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;controls&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input&nbsp;type=&quot;text&quot;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id=&quot;id_name&quot;&nbsp;class=&quot;input-xlarge&quot;&nbsp;name=&quot;name&quot;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;placeholder=&quot;请输入您的用户名&quot;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value=&quot;{{&nbsp;user.username&nbsp;}}&quot;&nbsp;/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;{#&nbsp;邮箱地址字段&nbsp;#}
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;control-group&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label&nbsp;class=&quot;control-label&quot;&nbsp;for=&quot;id_email&quot;&gt;邮箱：&nbsp;&lt;/label&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;controls&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input&nbsp;type=&quot;email&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id=&quot;id_email&quot;&nbsp;class=&quot;input-xlarge&quot;&nbsp;name=&quot;email&quot;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;placeholder=&quot;请输入您的邮箱地址&quot;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value=&quot;{{&nbsp;user.email&nbsp;}}&quot;&nbsp;/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;{#&nbsp;评论内容&nbsp;#}
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;a&nbsp;name=&quot;newcomment&quot;&nbsp;id=&quot;newcomment&quot;&gt;&lt;/a&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;control-group&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label&nbsp;class=&quot;control-label&quot;&nbsp;for=&quot;id_comment&quot;&gt;评论：&nbsp;&lt;/label&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;controls&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;textarea&nbsp;rows=&quot;6&quot;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id=&quot;id_comment&quot;&nbsp;class=&quot;input-xlarge&nbsp;comment&quot;&nbsp;name=&quot;comment&quot;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;placeholder=&quot;请输入评论内容&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/textarea&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;{#&nbsp;防垃圾评论&nbsp;#}
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&nbsp;style=&quot;display:none;&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label&nbsp;for=&quot;id_honeypot&quot;&gt;如果你在该字段中输入任何内容，你的评论就会被视为垃圾评论。&lt;/label&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input&nbsp;type=&quot;text&quot;&nbsp;name=&quot;honeypot&quot;&nbsp;id=&quot;id_honeypot&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/p&gt;
+
+&nbsp;&nbsp;&nbsp;&nbsp;{#&nbsp;表单按钮&nbsp;#}
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;controls&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;form-actions&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input&nbsp;class=&quot;btn&nbsp;btn-info&quot;&nbsp;id=&quot;submit_btn&quot;&nbsp;type=&quot;submit&quot;&nbsp;name=&quot;submit&quot;&nbsp;value=&quot;提交&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input&nbsp;type=&quot;hidden&quot;&nbsp;name=&quot;next&quot;&nbsp;value=&quot;{%url&nbsp;&#39;detailblog&#39;&nbsp;blog.id%}&quot;/&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;
+&nbsp;&lt;/form&gt;</pre><p><br/></p><p>其中我使用了一些Bootstrap的样式，可忽略。虽然现在可以提交评论了，但提交评论之后会跳转到一个很简陋的页面。</p><p>接下来用ajax写评论提交事件避免避免跳转到独立的评论页面，修正时间戳等Bug。</p>
+                <!-- JiaThis Button -->
+                <div class="share_btns">
+                    <p>(原创博文，转载请注明来自 <a href="http://yshblog.com/">杨仕航的博客</a>！本文链接：<a href="http://yshblog.com/blog/5">http://yshblog.com/blog/5</a>)</p>
+                    <p>若对你有帮助，不妨扫一扫右侧的<a href="/blog/sponsor" target=_blank>二维码</a>打赏支持我 ^_^</p>
+                    <div class="jiathis_style" style="margin-left: 2em;">
+                        <span class="jiathis_txt">分享到：</span>
+                        <a class="jiathis_button_tsina"></a>
+                        <a class="jiathis_button_tqq"></a>
+                        <a class="jiathis_button_weixin"></a>
+                        <a class="jiathis_button_cqq"></a>
+                        <a class="jiathis_button_qzone"></a>
+                        <a class="jiathis_button_douban"></a>
+                        <a class="jiathis_button_fb"></a>
+                        <span class="clearfix"></span>
+                    </div>
+                </div>
+
+                <p>
+                    
+                        <a href="/blog/6">上一篇：我的网站搭建(第6天) 评论Ajax提交</a>
+                    
+                </p>
+                <p>
+                    
+                        <a href="/blog/4">下一篇：我的网站搭建(第4天) 忙？懒？细节优化</a>
+                    
+                </p>
+
+                
+                    <p>相关专题：
+                        
+                            <a href="/subject/3" target="_blank">
+                                Django评论库开发
+                            </a>&nbsp;&nbsp;
+                        
+                    </p>
+                
+            </div>
+<!--
+<div style=" margin-top: 1.2em; border-top: 1px solid #ddd;">
+    <a href="https://datayi.cn/w/GRwdmDlP" target="_blank">    
+        <img src="/static/img/kkb.png" style="margin-left: 0; max-width: 100%; width: 100%;">
+    </a>
+</div>
+-->
+        </div>
+    </div>
+
+    <!--评论列表-->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>评论列表</h4>
+            <button id="jump_to_comment" class="btn btn-info comment_title_btn">我要评论</button>
+        </div>
+
+        <div id="comments_list" class="panel-body">
+            
+            
+                <div class="comment_obj" name="F313">
+                    <div class="comment_user">
+                        <img class="user_avatar" src="/static/media/avatar/default_64.png" alt="荣党">
+                        <p class="uesr_name">荣党</p>
+                    </div>
+
+                    <div class="comment_body">
+                        <div class="comment_content">
+                            <p id="comment_313">博主这个⁣{% get_comment_list for blog as comments %}中的 blog是你的模型对象吗，同步数据库后什么都不要做吗，然后直接按照你下面的案例来吗？😭</p>
+                        </div>
+                        
+                        <p class="comment_bottom">                        
+                            <span>2018-11-27 21:55</span>
+                            <span class='reply_button'>
+                                <a href='javascript:void(0);' onclick='reply_click(this);' root='313' role='313' base='荣党'>回复</a>
+                            </span>
+                        </p>
+                    
+                        
+                        <ul class="comment_reply">
+                            
+                            <li name='F315'>
+                                <img class="reply_avatar" src="/static/media/avatar/default_64.png">
+
+                                <div class="reply_body">
+                                    <p>
+                                            <span class="reply_name">荣党</span>
+                                    </p>
+                                    
+                                    <div class="reply_content">
+                                        <p id="comment_315">明白了，blog是我们的models对象</p>
+                                    </div>                                    
+
+                                    <p class="comment_bottom">                        
+                                        <span>2018-11-28 11:23</span>
+                                        <span class='reply_button'>
+                                            <a href='javascript:void(0);' onclick='reply_click(this);' root='313' role='315' base='荣党'>回复</a>
+                                        </span>
+                                    </p>
+                                </div>                                
+                            </li>
+                            
+                            <li name='F316'>
+                                <img class="reply_avatar" src="/static/media/avatar/default_64.png">
+
+                                <div class="reply_body">
+                                    <p>
+                                        
+                                        
+                                            <span class="reply_name">荣党</span>
+                                            <span> 回复 </span>
+                                            <span class="reply_name">荣党</span>
+                                        
+                                    </p>
+                                    
+                                    <div class="reply_content">
+                                        <p id="comment_316">再次评论自己看下效果</p>
+                                    </div>                                    
+
+                                    <p class="comment_bottom">                        
+                                        <span>2018-11-28 15:40</span>
+                                        <span class='reply_button'>
+                                            <a href='javascript:void(0);' onclick='reply_click(this);' root='313' role='316' base='荣党'>回复</a>
+                                        </span>
+                                    </p>
+                                </div>                                
+                            </li>
+                            
+                        </ul>
+                        
+                    </div>
+
+                    <span class="clearfix"></span>
+                </div>
+            
+                <div class="comment_obj" name="F314">
+                    <div class="comment_user">
+                        <img class="user_avatar" src="/static/media/avatar/default_64.png" alt="荣党">
+                        <p class="uesr_name">荣党</p>
+                    </div>
+
+                    <div class="comment_body">
+                        <div class="comment_content">
+                            <p id="comment_314">还有，你的网站发送的QQ邮件全被当作垃圾邮件被拦截了</p>
+                        </div>
+                        
+                        <p class="comment_bottom">                        
+                            <span>2018-11-27 22:00</span>
+                            <span class='reply_button'>
+                                <a href='javascript:void(0);' onclick='reply_click(this);' root='314' role='314' base='荣党'>回复</a>
+                            </span>
+                        </p>
+                    
+                        
+                        <ul class="comment_reply">
+                            
+                            <li name='F320'>
+                                <img class="reply_avatar" src="/static/media/avatar/default_64.png">
+
+                                <div class="reply_body">
+                                    <p>
+                                        
+                                        
+                                            <span class="reply_name">荣党</span>
+                                        
+                                    </p>
+                                    
+                                    <div class="reply_content">
+                                        <p id="comment_320">45455454</p>
+                                    </div>                                    
+
+                                    <p class="comment_bottom">                        
+                                        <span>2018-12-06 17:06</span>
+                                        <span class='reply_button'>
+                                            <a href='javascript:void(0);' onclick='reply_click(this);' root='314' role='320' base='荣党'>回复</a>
+                                        </span>
+                                    </p>
+                                </div>                                
+                            </li>
+                            
+                        </ul>
+                        
+                    </div>
+
+                    <span class="clearfix"></span>
+                </div>
+            
+        </div>
+    </div>
+
+    <!--评论框-->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 id="comment_title">新的评论</h4>
+            <button id="reply_cancel" class="btn btn-warning comment_title_btn" style="display:none">取消回复</button>
+            <p id="reply_text_pre" style="display:none"></p>
+        </div>
+
+        <div class="panel-body">
+            <div class="comments_nav">
+                
+                <form class="form-horizontal" action="/blog/comments/post/" method="post" id="comment_form">
+                    <input type='hidden' name='csrfmiddlewaretoken' value='BY1LDXIhr1z8e5d6ZsMMIEENzxZTqtFP' />
+                    <input id="id_object_pk" name="object_pk" type="hidden" value="5" />
+                    <input id="id_content_type" name="content_type" type="hidden" value="blog.blog" />
+                    <input id="id_timestamp" name="timestamp" type="hidden" value="1618636406" />
+                    
+                    
+                    <input id="id_security_hash" maxlength="40" name="security_hash" type="hidden" value="0173d3d3e0c57991d390de77527d6a49df72403e" />
+                    <input type="hidden" name="next" value="/blog/5"/>
+                    <input type="hidden" name="src_url" value="http://yshblog.com/blog/5"/>                 
+                    <input id="reply_to" type="hidden" name="reply_to" value="0" />
+                    <input id="root_id" type="hidden" name="root_id" value="0" />
+                    <input id="reply_name" type="hidden" name="reply_name" value="">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea class="input-xlarge comment_text" id="id_comment" name="comment" placeholder="为了防止垃圾评论，需要登录，才能评论哦~"></textarea>
+
+                            <!--如果你在该字段中输入任何内容，你的评论就会被视为垃圾评论-->
+                            <input type="text" style="display:none;" id="id_honeypot" name="honeypot">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                          <div class="form-actions comment_button">
+                            <span id='tip_text'></span>
+                            <input class="btn btn-info" id="submit_btn" type="submit" name="submit" value="提交"/>
+                            <button class="btn btn-default" id="reset_btn">清空</button>
+                          </div>
+                    </div>
+                 </form>
+            </div>
+        </div>
+    </div>
+
+        </div>
+
+        
+        <div class="col-md-3 hidden-sm hidden-xs blog-border">
+            
+            
+    <div class="side-list">
+        <h4>我的官网</h4>
+        <a href="https://zqyhdm.com/" target="_blank"><img src="/static/img/zqyhdm.jpg" style="width: 100%; border-radius: 0.2em;"></a>
+    </div>
+
+
+            <div class="side-list">
+                <h4>
+                    <span class="glyphicon glyphicon-book"></span>
+                    随机推荐
+                </h4>
+                <ul>
+                    
+                        <li>
+                            <a href="/blog/163" target="_blank">Django初步使用Celery</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/blog/137" target="_blank">机器学习06：朴素贝叶斯理论知识</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/blog/128" target="_blank">Excel绘制心形图（情人节特辑）</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/blog/114" target="_blank">我的网站搭建(第41天) 基于关键字的智能推荐</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/blog/162" target="_blank">VSTO加载xlam和调用vba的方法</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/blog/74" target="_blank">Python秒解最难数独</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/blog/145" target="_blank">机器学习09：逻辑回归详解</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/blog/158" target="_blank">外键的QuerySet查询</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/blog/93" target="_blank">我的网站搭建(第35天) 用UEditor新增博文</a>
+                        </li>
+                    
+                        <li>
+                            <a href="/blog/29" target="_blank">Python字符串处理方法总结</a>
+                        </li>
+                    
+                </ul>  
+            </div>
+
+            <div class="side-list">
+                <h4>
+                    <span class="glyphicon glyphicon-book"></span>
+                    猜你喜欢
+                </h4>
+                <ul id="like_blogs_list">
+                    <li>猜测中，请稍等...</li>
+                </ul>  
+            </div>  
+        </div>
+
+        <script type="text/javascript">
+            //获取猜测列表
+            $.ajax({
+                type:"GET",
+                url:"/blog/get_like_blogs",
+                cache:false,
+                dataType:'json',
+                success:function(data){
+                    $("#like_blogs_list").children().remove(); //移除子节点
+                    if(data['code']==0){
+                        for (var i = 0; i < data['items'].length; i++) {
+                            var url = data['items'][i]['url'];
+                            var caption = data['items'][i]['caption'];
+                            var str = '<li><a href="'+url+'" target=_blank>'+caption+'</a></li>';
+                            $("#like_blogs_list").append(str);
+                        };
+                    }else{
+                        $("#like_blogs_list").append('<li>'+data['message']+'</li>');
+                    }
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    $("#like_blogs_list").children().remove(); //移除子节点
+                    $("#like_blogs_list").append('<li>猜测卡壳了，猜不了T_T</li>');
+                }
+            });
+        </script>
+
+        </div>
+    
+
+    
+        
+        <div id="footer" class="page-bottom">
+            
+            <div class="container">
+                <div class="col-sm-4 hidden-xs">
+                    <div class="content">
+                        <h4 class="title">关于本站</h4>
+                        <p>1、基于Django+Bootstrap开发</p>
+                        <p>2、主要发表本人的技术原创博客</p>
+                        <p>3、本站于 2015-12-01 开始建站</p>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="content">
+                        <h4 class="title">建议反馈</h4>
+                        <p>1、可在相应的博文底下评论</p>
+                        <p>2、发邮件到2872402050@qq.com</p>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 hidden-xs">
+                    <div class="content">
+                        <h4 class="title">友情链接</h4>
+                        <p><a href="https://zqyhdm.com/" target=_blank>再敲一行代码</a></p>
+                        <p><a href="https://jq.qq.com/?_wv=1027&k=5lSm3eD" title="QQ群：701914136（点击加群）" target=_blank>QQ群：701914136</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <span>Welcome to visit my website &copy; Haddy Yang</span>
+            </div>
+        </div>
+    
+
+    <a id="scrolltop" class="gotop" href="javascript:void(0)" title="返回顶部"></a>
+
+    <!--打赏-->
+    <link type="text/css" rel="stylesheet" href="/static/css/tctip/myRewards.css">
+    <script>
+        window.tctipConfig = {
+            //最上面的文字
+            headText: "欢迎打赏支持我 ^_^",
+            //侧边栏文本
+            siderText: "公告 & 打赏",
+            //侧边栏文本高度调整
+            siderTextTop: "-72px",
+            //侧边栏背景颜色
+            siderBgcolor: "#323d45",
+            //整个侧边栏的高度设置
+            siderTop:"118px",
+            //底部文字
+            buttomText:"了解更多",
+            //底部文字链接
+            buttomLink:"https://github.com/haddyyang/tctip",
+            //显示列表
+            list:{
+                notice: {name:"公告栏", className:"myR-on",
+                         icon: "/static/img/qr_icon/tip.png",  
+                         text: '获取公告中...'
+                        },
+                alipay: {name:"支付宝", desc: "用支付宝给“仕航”打赏", 
+                         icon: "/static/img/qr_icon/alipay.png", 
+                         qrimg: "/static/img/qr_code/alipay.jpg"
+                        },
+                weixin: {name:"微信", desc: "用微信给“仕航”打赏", 
+                         icon: "/static/img/qr_icon/weixin.png",
+                         qrimg: "/static/img/qr_code/weixin.jpg"
+                        }    
+            }
+        };
+    </script>
+    <script src="/static/js/tctip.min.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+            //滚动事件
+            $(window).scroll(function(){
+                var top=$(window).scrollTop();
+                var navbar = $(".navbar-fixed-top");
+
+                if(top==0){
+                    $(".navbar-fixed-top").removeClass("navbar-down");
+                }else{
+                    $(".navbar-fixed-top").addClass("navbar-down");
+                }
+
+                if(top>350){
+                    $("#scrolltop").fadeIn();
+                }else{
+                    $("#scrolltop").fadeOut();
+                }
+            });
+
+            //点击返回头部效果
+            $("#scrolltop").click(function(){
+                $("html,body").animate({scrollTop:0});
+            });
+
+            //窗体改变大小事件
+            $(window).resize(function(){
+                //正文高度
+                var body_height = $(document.body).outerHeight(true);
+
+                //底部元素高度
+                var bottom_height = $("#footer").outerHeight(true);
+
+                //浏览器页面高度
+                var window_height = $(window).height();
+                
+                //判断并调整底部元素的样式
+                if($("#footer").hasClass('page-bottom-abs')){
+                    if(body_height + bottom_height >= window_height){
+                        $("#footer").removeClass('page-bottom-abs');
+                    }
+                }else{
+                    if(body_height < window_height){
+                        $("#footer").addClass('page-bottom-abs');
+                    }
+                }
+            });
+
+            //页面加载时，模拟触发一下resize事件
+            $(window).trigger('resize');
+
+            //检查登录状态和获取公告
+            var user_menu = '<li><a href="/user/login_page">登录/注册</a></li>';
+            $.ajax({
+                type:"GET",
+                url:"/user/check_is_login",
+                cache:false,
+                dataType:'json',
+                success:function(data){
+                    var notice;
+                    if(data['code']=='0'){
+                        user_menu = data['user_menu'];
+                        notice = data['notice'];
+                    }else{
+                        
+                        notice='暂无公告';
+                    };
+
+                    //$("#user_part").html(user_menu);
+                    $('.myRewards-text').html(notice);
+                    tctipConfig.list.notice.text=notice;
+                },
+                error:function(XMLHttpRequest, textStatus, errorThrown){
+                    $("#user_part").html(user_menu);
+                }
+            });
+        });
+    </script>
+    
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            //代码高亮
+            prettyPrint();
+
+            //评论提交
+            $('#comment_form').submit(function() {
+                if ($("#id_honeypot").val().length!=0) {alert("Stop!垃圾评论");return false;};
+                if ($("#id_comment").val().length==0) {
+                    $("#tip_text").text('您还没写任何评论内容');
+                    $(".emojionearea-editor").focus();
+                    $("body,html").animate({scrollTop: $("#comment_title").offset().top - 90}, 100);
+                    return false;
+                };
+
+                update_comment($('#comment_form').serialize());
+                return false;
+            });
+            //清空按钮
+            $('#reset_btn').click(function(){
+                var eoa = $("#id_comment")[0].emojioneArea;
+                eoa.setText('');
+                $('#tip_text').text('');
+            });
+
+            //提交评论或回复
+            function update_comment(form_data){
+                $.ajax({
+                    type: "POST",
+                    data: form_data,
+                    url: "/blog/comments/post/",
+                    cache: false,
+                    dataType: "json",
+                    success: function(json, textStatus) {
+                        if(json['success']){
+                            window.location.reload();
+                        }else{
+                            if(json['code']==501){
+                                $("#tip_text").text('您尚未登录，请先登录才能评论');
+                            }else if(json['code']==502){
+                                $("#tip_text").text('您尚未激活，请先激活您的账户才能评论');
+                            }else{
+                                $("#tip_text").text('评论出错，请刷新重试\n'+json['message']);
+                                window.console.debug(json);
+                            }
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert("评论出错\n请检查是否登录了或者刷新试试\n" + errorThrown);
+                    }
+                });
+            }
+
+            //页面打开定位到评论位置
+            if(window.location.hash!=""){
+                obj = document.getElementsByName(window.location.hash.split("#")[1])[0];
+                var $obj = $(obj);
+                $("body,html").animate({
+                  scrollTop: $obj.offset().top - 70
+                }, 1000);
+            };
+
+            //使用emojioneArea
+            $("#id_comment").emojioneArea();
+
+            //对评论内容的emoji转化
+            $(".comment_content p, .reply_content p").each(function(){
+                //$(this).html(emojione.toImage($(this).text()));
+                var value = $(this).text();
+                var code = $('<div/>').text(value).html(); //html转义
+                $(this).html(emojione.toImage(code));
+            });
+        });
+
+        //我要评论-按钮
+        $("#jump_to_comment").click(function(){
+            $(".emojionearea-editor").focus();
+            $("body,html").animate({scrollTop: $("#comment_title").offset().top - 90}, 100);
+        });
+
+        //取消回复-按钮
+        $("#reply_cancel").click(function(){
+            //设置相关数据
+            $("#reply_to").val('0');
+            $("#root_id").val('0');
+            $("#reply_name").val("");
+
+            //调整页面显示
+            $("#comment_title").text("新的评论");
+            $("#reply_text_pre").hide();
+            $("#reply_cancel").hide();
+        });
+
+        //回复按钮点击事件
+        function reply_click(obj){
+            obj = $(obj);
+
+            //设置回复信息
+            $("#reply_to").val(obj.attr("role"));
+            $("#root_id").val(obj.attr("root"));
+            $("#reply_name").val(obj.attr("base"));
+            
+            //显示回复的相关内容
+            $("#comment_title").text("回复：" + obj.attr("base"));
+            $("#reply_text_pre").html($("#comment_"+obj.attr("role")).html()); //显示要回复的评论内容
+            $("#reply_text_pre").show();
+            $("#reply_cancel").show();
+
+            //评论库获得焦点
+            $(".emojionearea-editor").focus();
+            $("body,html").animate({scrollTop: $("#comment_title").offset().top - 90}, 100);
+            return false;
+        }
+
+        //分享按钮
+        var jiathis_config = {data_track_clickback:'true'};
+
+        //给正文中的图片添加缩放属性
+        $(".blog_content img").attr("data-action", "zoom");
+    </script>
+
+    <!--图片缩放-->
+    <link rel="stylesheet" type="text/css" href="/static/css/zoom.css">
+    <script type="text/javascript" src="/static/js/zoom.min.js"></script>
+
+    <!--分享按钮-->
+    <script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=2122949" charset="utf-8"></script>
+
+</body>
+</html>
